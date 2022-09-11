@@ -1,9 +1,5 @@
 package mhl.domain;
 
-/**
- * @author Carson
- * @Version
- */
 public class EmployeeInfo {
     private Integer id;
     private String empId;
