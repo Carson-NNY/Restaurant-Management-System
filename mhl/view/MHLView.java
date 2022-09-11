@@ -8,12 +8,11 @@ import javax.rmi.CORBA.Util;
 import java.util.List;
 
 /**
- * @author Carson
- * This is the main view
+ * the main class for executing the syetem
  */
 public class MHLView {
-    //注意： 更换访问不同的数据库时要到JDBCUtilesByDruid里把new FileInputStream("src/druid.properties")
-    //里面的druid.properties的文件里的内容改变，去访问自己需要的数据库和表 ，目前那表内容：
+    //note: if access different databases, need to go to JDBCUtilesByDruid and change  the content of druid.properties in
+    // new FileInputStream("src/druid.properties") to the database and tables you need ，The contents of the table at present:
     //driverClassName=com.mysql.jdbc.Driver
     //url=jdbc:mysql://localhost:3306/mhl?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     //username=root
@@ -27,17 +26,16 @@ public class MHLView {
 
     // control it whether to exist from the main menu
     private boolean loop =  true;
-    private String key = ""; // 接受用户的输入
+    private String key = ""; // Accept user input
 
-    // 定义EmployeeService属性对象
+    // Define EmployeeService object
     private EmployeeService employeeService = new EmployeeService();
-    // 定义一个DiningTableService一个属性
+    // Define a DiningTableService 
     private DiningTableService diningTableService = new DiningTableService();
-    // 定义一个MenuService 属性
+    // Define a MenuService 
     private MenuService menuService = new MenuService();
-    // 定义一个BillService 属性
+    // Define a  BillService 
     private BillService billService = new BillService();
-    // 扩展的分表设计（员工登陆表和员工信息表）
     private EmployeeInfoService employeeInfoService= new EmployeeInfoService();
     String empId="";
 
@@ -49,32 +47,32 @@ public class MHLView {
     public  void mainMenu(){
         while (loop){
 
-            System.out.println("====================满汉楼================");
-            System.out.println( "\t\t 1 登陆满汉楼");
-            System.out.println( "\t\t 2 退出满汉楼");
-            System.out.println("请输入你的选择");
+            System.out.println("====================Operating System================");
+            System.out.println( "\t\t 1 Log in");
+            System.out.println( "\t\t 2 Log out");
+            System.out.println("Please enter your choice");
              key = Utility.readString(1);
              switch (key){
                  case "1":
-                     System.out.print("请输入员工号： " );
+                     System.out.print("Please enter the employee ID： " );
                      empId = Utility.readString(50);
-                     System.out.print("请输入密码： " );
+                     System.out.print("Enter Your password： " );
                      String pwd = Utility.readString(50);
                      Employee employee = employeeService.getEmployeeByIdAndPwd(empId, pwd);
                      if( employee!=null ){
-                         System.out.println("========登陆成功{"+ employee.getName()+"}==========");
-                         //显示二级菜单
+                         System.out.println("========Log in successfully{"+ employee.getName()+"}==========");
+                         //Show secondary menu
                          while(loop){
-                             System.out.println("========二级菜单===============");
-                             System.out.println("\t\t 1 餐桌状态");
-                             System.out.println("\t\t 2 预定餐桌");
-                             System.out.println("\t\t 3 显示所有菜品");
-                             System.out.println("\t\t 4 点餐服务");
-                             System.out.println("\t\t 5 查看账单");
-                             System.out.println("\t\t 6 结账");
-                             System.out.println("\t\t 7 查看此员工信息");
-                             System.out.println("\t\t 9 退出满汉楼");
-                             System.out.print("请输入选择：");
+                             System.out.println("========Second-level menu===============");
+                             System.out.println("\t\t 1 Table status");
+                             System.out.println("\t\t 2 Book a table");
+                             System.out.println("\t\t 3 Show all dishes");
+                             System.out.println("\t\t 4 Ordering service");
+                             System.out.println("\t\t 5 View the bill");
+                             System.out.println("\t\t 6 Check out");
+                             System.out.println("\t\t 7 View this employee information");
+                             System.out.println("\t\t 9 exit");
+                             System.out.print("Please enter a selection：");
                              key = Utility.readString(1);
                              switch (key){
                                  case "1":
@@ -95,34 +93,34 @@ public class MHLView {
                                  case "6":
                                      checkBill();
                                  break;
-                                 case "7":  // 老韩扩展的分表设计，（员工登陆表和员工信息表分开）
+                                 case "7": 
                                      listemployee(empId);
                                      break;
                                  case "9":
                                      loop = false;
                                      break;
                                  default:
-                                     System.out.println("你的输入有误");
+                                     System.out.println("invalid input");
                              }
 
                          }
                      }else{
-                         System.out.println("登陆失败");
+                         System.out.println("Login failed");
                      }
                      break;
                  case "2":
                      loop = false;
                      break;
                  default:
-                     System.out.println("输入有误，请重新输入");
+                     System.out.println("Input error, please re-enter");
 
              }
         }
-        System.out.println("退出满汉楼");
+        System.out.println("exit");
     }
 
     public void listDiningTable(){
-        System.out.println("\n餐桌编号\t\t餐桌状态");
+        System.out.println("\nTable number\t\tTable status");
         List<DiningTable> list = diningTableService.list();
         for (DiningTable diningTable : list) {
             System.out.println(diningTable);
@@ -130,50 +128,47 @@ public class MHLView {
     }
 
     public  void orderDiningTable() {
-        System.out.println("===============预定餐桌===============");
-        System.out.print("请选择要预定的餐桌编号（-1退出）： ");
+        System.out.println("===============Book a table===============");
+        System.out.print("Please select the table number you want to book (- 1 exit)）： ");
         int orderId = Utility.readInt();
         if(orderId == -1){
-            System.out.println("取消预定餐桌");
+            System.out.println("Cancel the reservation");
             return;
         }
         char c = Utility.readConfirmSelection();
         if(c == 'Y'){
             DiningTable diningTable= diningTableService.getDiningTableById(orderId);
         if(diningTable == null){
-            System.out.println("预定的餐桌不存在");
+            System.out.println("The reserved table does not exist by the number.");
             return;
         }
-        if( ! "空".equals(diningTable.getState())  ){
-            System.out.println("该餐位已经被占用");
+        if( ! "null".equals(diningTable.getState())  ){
+            System.out.println("The table has been occupied.");
             return;
         }
-            System.out.print("预定人名字：");
+            System.out.print("Reservation person's name：");
             String orderName = Utility.readString(50);
-            System.out.print("预定人电话：");
+            System.out.print("Reservation phone number：");
             String orderTel  = Utility.readString(50);
             if(diningTableService.orderDiningTable(orderId,orderName,orderTel)){
-                System.out.println("===========预定成功==============");
+                System.out.println("===========Booking successful==============");
             }else{
-                System.out.println("===========预定失败===========");
+                System.out.println("===========Booking failure===========");
             }
         }   else{
-            System.out.println("===========取消预定餐桌==========");
+            System.out.println("===========Cancel the reservation==========");
         }
     }
     public  void listMenu(){
-        System.out.println("\n菜品编号\t\t菜品名\t\t类别\t\t价格");
+        System.out.println("\nDish number\t\tdish name\t\tCategory\t\tPrice");
         List<Menu> menus = menuService.listDish();
         for (Menu menu : menus) {
             System.out.println(menu);
         }
     }
     public  void listBill(){
-//        System.out.println("\n编号\t\t菜品号\t\t9菜品量\t\t金额\t\t桌号\t\t日期\t\t\t\t\t\t\t状态");
-//        List<Bill> bills = billService.listBill();
-//        for (Bill bill : bills) {
-//            System.out.println(bill);
-        System.out.println("\n编号\t\t菜品号\t\t9菜品量\t\t金额\t\t桌号\t\t日期\t\t\t\t\t\t\t状态\t\t菜品名\t\t价格");
+
+        System.out.println("\nID\t\tdish ID\t\tnumber of dish\t\tPrice\t\tTable number\t\tDate\t\t\t\t\t\t\tStatus\t\tDish Name\t\tPrice");
         List<MultiTableBean> multiTableBeans = billService.listMultiTable();
         for (MultiTableBean multiTableBean : multiTableBeans) {
             System.out.println(multiTableBean);
@@ -182,83 +177,82 @@ public class MHLView {
     }
 
 
-    // 点餐
     public  void orderMenu() {
-        System.out.println("===============点餐服务===============");
-        System.out.print("请选择要预定的餐桌编号（-1退出）： ");
+        System.out.println("==============Ordering service================");
+        System.out.print("Please select the table number to be booked (- 1 exit)： ");
         int orderTableId = Utility.readInt();
         if(orderTableId   == -1){
-            System.out.println("取消点餐");
+            System.out.println("Cancel the order");
             return;
         }
-        System.out.print("请选择要预定的菜品编号（-1退出）： ");
+        System.out.print("Please select the item number you want to order (- 1 exit): ");
         int orderMenuId = Utility.readInt();
         if( orderMenuId ==  -1){
-            System.out.println("取消点餐");
+            System.out.println("Cancel the order");
             return;
         }
-        System.out.print("请选择要点菜品数量（-1退出）： ");
+        System.out.print("Please select the number of key dishes (- 1 exit)： ");
         int nums = Utility.readInt();
 
         if( nums  == -1){
-            System.out.println("取消点餐");
+            System.out.println("Cancel the order");
             return;
         }
         char c = Utility.readConfirmSelection();
         if(c == 'Y'){
             DiningTable diningTable= diningTableService.getDiningTableById(orderTableId);
             if(diningTable == null){
-                System.out.println("餐桌不存在");
+                System.out.println("The table doesn't exist.");
                 return;
             }
             Menu menuDishById = menuService.getMenuDishById(orderMenuId);
             if(menuDishById == null){
-                System.out.println("预定的菜品不存在");
+                System.out.println("The ordered dish does not exist.");
                 return;
             }
 
            if( billService.orderDish(orderMenuId,nums,orderTableId)){
-               System.out.println("=========点餐成功=========");
+               System.out.println("========= successfully=========");
            }else{
-               System.out.println("=========点餐失败=========");
+               System.out.println("=========Order Failed=========");
            }
         }
     }
 
     public void checkBill(){
-        System.out.println("===============结账服务===============");
-        System.out.print("请选择要结账的餐桌编号（-1退出）： ");
+        System.out.println("===============Checkout service===============");
+        System.out.print("Please select the table number to check out (- 1 exit)： ");
         int orderTableId = Utility.readInt();
         if(orderTableId   == -1){
-            System.out.println("取消点餐");
+            System.out.println("Cancel the order");
             return;
         }
 
         DiningTable diningTableById = diningTableService.getDiningTableById(orderTableId);
         if(diningTableById == null){
-            System.out.println("无效餐桌号！");
+            System.out.println("Invalid table number！");
             return;
         }
 
         if(! billService.hasPayBillbyDiningTableId(orderTableId)){
-            System.out.println("该餐位没有未结账账单");
+            System.out.println("There is no unpaid bill for this table.");
             return;
         }
 
 
-        System.out.print("结账的方式（现金/支付宝/微信） 回车表示退出： ");
+        System.out.print("The method of checkout (cash / Alipay / Wechat) enter to indicate exit: ");
         String s = Utility.readString(50,"");
-        if(!("现金".equals(s) || "支付宝".equals(s) ||"微信".equals(s))){
-            System.out.println("无效支付方式");
+        if(!("cash".equals(s) || "Alipay".equals(s) ||"Wechat".equals(s))){
+            System.out.println("Invalid way of payment");
             return;
         }
         char c = Utility.readConfirmSelection();
         if(c == 'Y'){
             boolean b = billService.checkOut(orderTableId,s);
             if(b){
-                System.out.println("结账成功");
+                System.out.println("Check out successfully");
             }else{
-                System.out.println("结账失败");
+                System.out.println("Failed to check out");
             }
         }
     }
