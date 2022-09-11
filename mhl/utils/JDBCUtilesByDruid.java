@@ -11,14 +11,13 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
- * @author Carson
- * @Version
+ * A util class for JDBC operation
  */
 public class JDBCUtilesByDruid {
 
     private static DataSource ds;
 
-    //在静态代码块完成 ds初始化
+    //Complete ds initialization in a static code block
     static {
         Properties properties = new Properties();
         try {
@@ -32,12 +31,13 @@ public class JDBCUtilesByDruid {
 
     }
 
-    // 得到connection
+    // get a connection
     public static Connection getConnection() throws SQLException{
-        return ds.getConnection();// 连接到数据库连接池
+        return ds.getConnection();// Connect to the database connection pool
     }
 
-    // 把连接放回连接池 （close不是真的断掉连接，而是把Connection对象放回数据库连接池
+    // Put the connection back into the connection pool (instead of actually breaking the connection, 
+    // close puts the Connection object back into the database connection pool
     public static void close(ResultSet resultSet, Statement statement,Connection connection){
         try {
             if(resultSet != null){
@@ -47,8 +47,9 @@ public class JDBCUtilesByDruid {
                 statement.close();
             }
             if(connection != null){
-                connection.close(); // close不是真的断掉连接，而是把Connection对象放回数据库连接池
-                // 这里的connection的close是按照Druid的内部实现， 返回connection到连接池
+                connection.close(); 
+                // The close of connection here is implemented according to the internal implementation of Druid 
+                // and returns connection to the connection pool.
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
