@@ -5,6 +5,7 @@ import mhl.domain.DiningTable;
 
 import java.util.List;
 
+//any operation related to it DiningTable
 
 public class DiningTableService {
     private DiningTableDAO diningTableDAO = new DiningTableDAO();
