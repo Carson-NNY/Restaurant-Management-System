@@ -1,8 +1,7 @@
 package mhl.domain;
 
 /**
- * @author Carson
- * @Version
+ * this javabean reflects the Menu table in database
  */
 public class Menu {
     private Integer id;
