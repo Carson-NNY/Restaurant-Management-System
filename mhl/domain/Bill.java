@@ -2,10 +2,7 @@ package mhl.domain;
 
 import java.util.Date;
 
-/**
- * @author Carson
- * @Version
- */
+
 public class Bill {
     private Integer id;
     private String billId;
