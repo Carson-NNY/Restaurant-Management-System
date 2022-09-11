@@ -3,7 +3,7 @@ package mhl.domain;
 import sun.applet.AppletResourceLoader;
 
 /**
- * this javabean corresponds with employee
+ * this javabean reflects the employee table
  */
 public class Employee {
     private Integer id;
