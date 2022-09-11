@@ -6,14 +6,11 @@ import mhl.domain.Menu;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-/**
- * @author Carson
- * @Version
- */
+
 public class MenuService {
     private MenuDAO menuDAO = new MenuDAO();
 
-    //返回所有菜品
+    // Return all dish names
     public List<Menu>  listDish(){
         return menuDAO.queryMulti("select * from menu",Menu.class);
     }
