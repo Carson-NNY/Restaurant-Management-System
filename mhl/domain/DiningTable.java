@@ -1,7 +1,7 @@
 package mhl.domain;
 
 /**
- * javabean corresponds with diningtable
+ * this javabean reflects the diningtable
  */
 public class DiningTable {
     private Integer id;
