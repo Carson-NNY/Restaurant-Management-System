@@ -3,8 +3,7 @@ package mhl.domain;
 import sun.applet.AppletResourceLoader;
 
 /**
- * @author Carson
- * 这是一个javabean，和employee对应映射
+ * this javabean corresponds with employee
  */
 public class Employee {
     private Integer id;
