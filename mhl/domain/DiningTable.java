@@ -1,8 +1,7 @@
 package mhl.domain;
 
 /**
- * @author Carson
- * javabean和diningtable表对应
+ * javabean corresponds with diningtable
  */
 public class DiningTable {
     private Integer id;
