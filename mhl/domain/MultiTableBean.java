@@ -3,11 +3,10 @@ package mhl.domain;
 import java.util.Date;
 
 /**
- * @author Carson
- *  这个javabean可以和多张表进行映射
+ *  this javabean can reflects multiple tables
  */
 public class MultiTableBean {
-    // 来自bill表
+    // from bill table
     private Integer id;
     private String billId;
     private Integer menuId;
@@ -16,7 +15,7 @@ public class MultiTableBean {
     private Integer diningTableId;
     private Date billDate;
     private String state;
-    // 增加menu
+    // add menu
     private String name;
     private Double price;
 
