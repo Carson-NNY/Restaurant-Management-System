@@ -12,7 +12,7 @@ public class Employee {
     private String name;
     private String job;
 
-    public Employee() { // 底层apache-dbutils需要用到无参构造器
+    public Employee() { // apache-dbutils needs this default constructor 
     }
 
     @Override
