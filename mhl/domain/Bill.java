@@ -2,7 +2,7 @@ package mhl.domain;
 
 import java.util.Date;
 
-
+// this javabean reflects the Bill table in database
 public class Bill {
     private Integer id;
     private String billId;
